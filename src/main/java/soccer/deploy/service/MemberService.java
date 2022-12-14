@@ -24,4 +24,5 @@ public interface MemberService {
 	
 	/** 검색, 페이징 처리 회원 조회 */
 	public Page<Member> findMembers(String searchValue, Pageable pageable);
+
 }

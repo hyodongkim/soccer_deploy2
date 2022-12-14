@@ -105,14 +105,19 @@
                     <!-- ★★★ 검색 -->
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <form class="form-search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="아이디 또는 회원명">
-                                    <span class="input-group-btn">
-                                        <button type="submit" class="btn btn-primary">검색</button>
-                                    </span>
-                                </div>
-                            </form>
+                        
+                            
+                            <form th:action="@{/notice}" method="get">
+        					  <div>
+            				    <label for="name">효동</label>
+            					  <input type="text" name="id" class="form-control" placeholder="아이디 또는 회원명 앗흥" >
+        					  </div>
+
+        					  <button class="btn-primary" type="submit">전송</button>
+    						</form>
+                            
+                            
+                            
                         </div>
                     </div>
 

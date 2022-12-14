@@ -33,7 +33,7 @@ public class MemberServiceImpl implements MemberService {
 	public Optional<Member> findMember(String id) {
 		return jpaMemberRepository.findById(id);
 	}
-
+	
 	@Override
 	public List<Member> findMembers() {
 		return jpaMemberRepository.findAll();

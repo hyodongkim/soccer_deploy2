@@ -1,5 +1,7 @@
 package soccer.deploy.dao;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -13,5 +15,8 @@ public interface JpaMemberRepository extends JpaRepository<Member, String>{
 	public Member findByIdAndPassword(String id, String password);
 	
 	// 아이디 또는 이름에 의한 검색 - 목록 페이징 처리
-	Page<Member> findAllByIdOrNameContaining(String id, String name, Pageable pageable);
+	public Page<Member> findAllByIdOrNameContaining(String id, String name, Pageable pageable);
+
+	
+	
 }

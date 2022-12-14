@@ -1,6 +1,7 @@
 package soccer.deploy.dto;
 
 import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -26,6 +27,7 @@ public class Member {
 	private String name;
 	private Integer age;
 	private LocalDateTime regdate;
+
 }
 
 /*

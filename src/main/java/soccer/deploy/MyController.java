@@ -1,8 +1,6 @@
 package soccer.deploy;
 
 import java.util.List;
-import java.util.Optional;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -126,12 +124,12 @@ public class MyController {
 	
 	@RequestMapping("/notice")
 	/* default page = 0, default size = 10 */
-	public String listBySearchAndPaging(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable, @RequestParam(required = false, defaultValue = "") String search,  Model model) {
+	public String listBySearchAndPaging(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable, @RequestParam(required = false, defaultValue = "") String search, Model model) {
 		
 		Page<Member> page = memberService.findMembers(search, pageable);
-		
+		    	
 		long totalElements = page.getTotalElements();
-		List<Member> list = page.getContent();
+		List<Member> list = page.getContent();	
 		int requestPage = page.getPageable().getPageNumber() + 1;
 		int totalPage = page.getTotalPages();
 		int startPage = Math.max(1, requestPage - 4);
@@ -150,5 +148,28 @@ public class MyController {
 		
 		return "thymeleaf/notice";
 	}
+	@GetMapping("/notice")
+	public String Search(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable, @RequestParam(required = false, defaultValue = "") String search,  Model model, @RequestParam(required = false, defaultValue = "") String id) {
 	
+		Page<Member> page = memberService.findMembers(search, pageable);
+		
+		long totalElements = page.getTotalElements();	
+		int requestPage = page.getPageable().getPageNumber() + 1;
+		int totalPage = page.getTotalPages();
+		int startPage = Math.max(1, requestPage - 4);
+		int endPage   = Math.min(page.getTotalPages(), requestPage + 4);
+		boolean hasPrevious = page.hasPrevious();
+		boolean hasNext = page.hasNext();
+		
+		model.addAttribute("totalElements", totalElements);
+		model.addAttribute("list", memberService.findMembers(id,pageable));
+		model.addAttribute("requestPage", requestPage);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("hasPrevious", hasPrevious);
+		model.addAttribute("hasNext", hasNext);
+		
+		return "thymeleaf/notice";
+	}
 }
