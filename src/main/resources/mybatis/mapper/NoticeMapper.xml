@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="soccer.deploy.dao.JpaNoticeRepository">
+	
+	<select id="findByAll" resultType="soccer.deploy.dto.Notice" >
+		SELECT id,title,content,notice_date 
+        FROM notice 
+	</select>
+	
+	<select id="findById" parameterType="string" resultType="soccer.deploy.dto.Notice" >
+		SELECT id,title,content,notice_date 
+		FROM notice
+		WHERE id = #{id}
+	</select>
+	
+	<!--
+	<select id="findByAgeRange" parameterType="int" resultType="soccer.deploy.dto.Notice" >
+		SELECT id, password, name, age 
+		FROM member
+		WHERE age BETWEEN #{begin} AND #{end}
+	</select>
+	-->
+	
+	<select id="findByTitleLike" parameterType="string" resultType="soccer.deploy.dto.Notice" >
+		SELECT id,title,content,notice_date 
+		FROM notice
+		WHERE title LIKE #{value}
+	</select>
+	
+	<!-- 
+	<select id="findBySearch" parameterType="map" resultType="Member" >
+		SELECT id, password, name, age 
+		FROM member
+		<if test="type != null and type != ''">
+			<choose>
+				<when test="type == 'id'">
+					WHERE id = #{value}
+				</when>
+				<when test="type == 'name'">
+					WHERE name LIKE '%' || #{value} || '%'
+				</when>
+			</choose>
+		</if>
+	</select>
+	 -->
+	<select id="findBySearch" parameterType="map" resultType="soccer.deploy.dto.Notice" >
+		SELECT id,title,content,notice_date 
+		FROM notice
+		<where>
+			<if test="type != null and type == id">
+				and id = #{id}
+			</if>
+			<if test="type != null and type == title">
+				and title LIKE '%' || #{value} || '%'
+			</if>
+		</where>
+	</select>
+	
+	<select id="findBySearchV2" parameterType="soccer.deploy.dto.Notice" resultType="soccer.deploy.dto.Notice" >
+		SELECT id,title,content,notice_date 
+		FROM notice
+		<where>
+			<if test="id != null and id != ''">
+				or id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+				or title LIKE '%' || #{title} || '%'
+			</if>
+			<!-- <if test="age != null">
+				or age = #{age}
+			</if>
+			-->
+		</where>
+	</select>
+	 
+	<insert id="create" parameterType="soccer.deploy.dto.Notice">
+		INSERT INTO notice(id, title, content, notice_date)
+		VALUES(#{id}, #{title}, #{content}, #{notice_date})
+	</insert>
+	
+	<!--<update id="update" parameterType="soccer.deploy.dto.Notice">
+		UPDATE notice
+		SET age = #{age}
+		WHERE id = #{id}
+	</update>
+	 -->
+</mapper>

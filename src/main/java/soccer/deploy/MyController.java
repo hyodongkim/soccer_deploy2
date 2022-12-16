@@ -29,7 +29,9 @@ import org.springframework.util.StringUtils;
 
 import lombok.extern.slf4j.Slf4j;
 import soccer.deploy.dto.Member;
+import soccer.deploy.dto.Notice;
 import soccer.deploy.service.MemberService;
+import soccer.deploy.service.NoticeService;
 import soccer.deploy.entity.LoginForm;
 import soccer.deploy.entity.MemberForm;
 
@@ -39,6 +41,9 @@ public class MyController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private NoticeService noticeService;
 
 	//시작(로그인)
 	@RequestMapping("/")
@@ -122,14 +127,65 @@ public class MyController {
 		return "view/lineUp/lineUp";
 	}
 	
-	@RequestMapping("/notice")
+//	@RequestMapping("/notice")
+//	/* default page = 0, default size = 10 */
+//	public String listBySearchAndPaging(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable, @RequestParam(required = false, defaultValue = "") String search, Model model) {
+//		
+//		Page<Member> page = memberService.findMembers(search, pageable);
+//		    	
+//		long totalElements = page.getTotalElements();
+//		List<Member> list = page.getContent();	
+//		int requestPage = page.getPageable().getPageNumber() + 1;
+//		int totalPage = page.getTotalPages();
+//		int startPage = Math.max(1, requestPage - 4);
+//		int endPage   = Math.min(page.getTotalPages(), requestPage + 4);
+//		boolean hasPrevious = page.hasPrevious();
+//		boolean hasNext = page.hasNext();
+//		
+//		model.addAttribute("totalElements", totalElements);
+//		model.addAttribute("list", list);
+//		model.addAttribute("requestPage", requestPage);
+//		model.addAttribute("totalPage", totalPage);
+//		model.addAttribute("startPage", startPage);
+//		model.addAttribute("endPage", endPage);
+//		model.addAttribute("hasPrevious", hasPrevious);
+//		model.addAttribute("hasNext", hasNext);
+//		
+//		return "thymeleaf/notice";
+//	}
+//	@GetMapping("/notice")
+//	public String Search(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable, @RequestParam(required = false, defaultValue = "") String search,  Model model, @RequestParam(required = false, defaultValue = "") String id) {
+//	
+//		Page<Member> page = memberService.findMembers(search, pageable);
+//		
+//		long totalElements = page.getTotalElements();	
+//		int requestPage = page.getPageable().getPageNumber() + 1;
+//		int totalPage = page.getTotalPages();
+//		int startPage = Math.max(1, requestPage - 4);
+//		int endPage   = Math.min(page.getTotalPages(), requestPage + 4);
+//		boolean hasPrevious = page.hasPrevious();
+//		boolean hasNext = page.hasNext();
+//		
+//		model.addAttribute("totalElements", totalElements);
+//		model.addAttribute("list", memberService.findMembers(id,pageable));
+//		model.addAttribute("requestPage", requestPage);
+//		model.addAttribute("totalPage", totalPage);
+//		model.addAttribute("startPage", startPage);
+//		model.addAttribute("endPage", endPage);
+//		model.addAttribute("hasPrevious", hasPrevious);
+//		model.addAttribute("hasNext", hasNext);
+//		
+//		return "thymeleaf/notice";
+//	}
+	
+	@RequestMapping("/realNotice")
 	/* default page = 0, default size = 10 */
-	public String listBySearchAndPaging(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable, @RequestParam(required = false, defaultValue = "") String search, Model model) {
+	public String reallistBySearchAndPaging(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable, @RequestParam(required = false, defaultValue = "") String search, Model model) {
 		
-		Page<Member> page = memberService.findMembers(search, pageable);
+		Page<Notice> page = noticeService.findNotices(search, pageable);
 		    	
 		long totalElements = page.getTotalElements();
-		List<Member> list = page.getContent();	
+		List<Notice> list = page.getContent();	
 		int requestPage = page.getPageable().getPageNumber() + 1;
 		int totalPage = page.getTotalPages();
 		int startPage = Math.max(1, requestPage - 4);
@@ -146,12 +202,12 @@ public class MyController {
 		model.addAttribute("hasPrevious", hasPrevious);
 		model.addAttribute("hasNext", hasNext);
 		
-		return "thymeleaf/notice";
+		return "thymeleaf/realNotice";
 	}
-	@GetMapping("/notice")
-	public String Search(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable, @RequestParam(required = false, defaultValue = "") String search,  Model model, @RequestParam(required = false, defaultValue = "") String id) {
+	@GetMapping("/realNotice")
+	public String realSearch(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable, @RequestParam(required = false, defaultValue = "") String search,  Model model, @RequestParam(required = false, defaultValue = "") String id) {
 	
-		Page<Member> page = memberService.findMembers(search, pageable);
+		Page<Notice> page = noticeService.findNotices(search, pageable);
 		
 		long totalElements = page.getTotalElements();	
 		int requestPage = page.getPageable().getPageNumber() + 1;
@@ -162,7 +218,7 @@ public class MyController {
 		boolean hasNext = page.hasNext();
 		
 		model.addAttribute("totalElements", totalElements);
-		model.addAttribute("list", memberService.findMembers(id,pageable));
+		model.addAttribute("list", noticeService.findNotices(id,pageable));
 		model.addAttribute("requestPage", requestPage);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("startPage", startPage);
@@ -170,6 +226,6 @@ public class MyController {
 		model.addAttribute("hasPrevious", hasPrevious);
 		model.addAttribute("hasNext", hasNext);
 		
-		return "thymeleaf/notice";
+		return "thymeleaf/realNotice";
 	}
 }
