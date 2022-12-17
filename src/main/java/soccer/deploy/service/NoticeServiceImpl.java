@@ -32,8 +32,8 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public Optional<Notice> findNotice(String id) {
-		return jpaNoticeRepository.findById(id);
+	public Optional<Notice> findNotice(int num) {
+		return jpaNoticeRepository.findByNum(num);
 	}
 	
 	@Override

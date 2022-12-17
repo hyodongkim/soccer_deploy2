@@ -34,7 +34,7 @@
 }
 .col-lg-12{
 	width : 1900px;
-	height : 1000px;
+	height : 800px;
 }
 .pagination{
 	
@@ -49,28 +49,6 @@
 	justify-content: center;
 	margin-top : 40px;
 	
-}
-
-.area {
-  margin: 10px 0;
-  width: 40px;
-  height : 22px;
-}
-
-
-/* 텍스트가 영역을 넘치도록 하는 속성 */
-.white-space {
-  white-space: nowrap;
-}
-
-/* 영역에 넘치는 요소를 숨겨주는 속성 */
-.overflow {
-  overflow: hidden;
-}
-
-/* 말줄임표 적용 */
-.ellipsis {
-  text-overflow: ellipsis;
 }
 
 </style>
@@ -95,7 +73,12 @@
 						<li><a href="matches" class="nav-link">Matches</a></li>
 						<li><a href="players" class="nav-link">Players</a></li>
 						<li><a href="xMain" class="nav-link">MainPage</a></li>
-						<li><a href="/realNotice" class="nav-link">Notice</a></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle "
+							data-toggle="dropdown">게시판<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="/notice" class="drop">공지사항</a></li>
+								<li><a href="/board" class="drop">자유게시판</a></li>
+							</ul></li>
 						<li><a href="/login" class="nav-link">Login</a></li>
 					</ul>
 				</nav>
@@ -118,74 +101,15 @@
                     <h2 id="container">커뮤니티 회원목록</h2>
                 </div>
 
-                <div>
-                    <!-- ★★★ 검색 -->
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                        
-                            
-                            <form th:action="@{/realNotice}" method="get">
-        					  <div>
-            					  <input type="text" name="id" class="form-control" placeholder="아이디 또는 제목을 입력하세요" >
-        					  </div>
+                <tr th:if="${totalElements == 0}"><td colspan="5" class="text-center">검색된 회원이 없습니다.</td></tr>
+              		<tr class="text-center" th:each="notice, noticeStat : ${list}">
+                	<td th:text="${noticeStat.count}">1</td>
+                	<td th:text="${notice.id}">tester</td>
+                	<td class="area white-space overflow ellipsis">[[${notice.title}]]</td>
+                	<td class="area white-space overflow ellipsis" th:text="${notice.content}">tester</td>
+                	<td class="area white-space overflow ellipsis" th:text="${#temporals.format(notice.notice_date, 'yyyy-MM-dd HH:mm:ss')}">2022-10-10</tdclass="area white-space overflow ellipsis">
+              	</tr>
 
-        					  <button class="btn-primary" type="submit">전송</button>
-    						</form>
-                            
-                            
-                            
-                        </div>
-                    </div>
-
-                    <!-- ★★★ 회원목록 -->
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover" style="width:300px;">
-                            <thead>
-                                <tr>
-                                    <th class="text-center"></th>
-                                    <th class="text-center">아이디</th>
-                                    <th class="text-center">제목</th>
-                                    <th class="text-center">내용</th>
-                                    <th class="text-center">등록일자</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!--<tr><td colspan="5" class="text-center">가입한 회원이 없습니다.</td></tr>-->
-                                 <tbody>
-              					 <tr th:if="${totalElements == 0}"><td colspan="5" class="text-center">검색된 회원이 없습니다.</td></tr>
-              					 <tr class="text-center" th:each="notice, noticeStat : ${list}">
-                				 <td th:text="${noticeStat.count}">1</td>
-                				 <td th:text="${notice.id}">tester</td>
-                				 <td class="area white-space overflow ellipsis"><a th:href="@{/{noticeNum}(noticeNum=${notice.num})}">[[${notice.title}]]</a></td>
-                				 <td class="area white-space overflow ellipsis" th:text="${notice.content}">tester</td>
-                				 <td class="area white-space overflow ellipsis" th:text="${#temporals.format(notice.notice_date, 'yyyy-MM-dd HH:mm:ss')}">2022-10-10</tdclass="area white-space overflow ellipsis">
-              					 </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- ★★★ Pagination -->
-                
-                    <ul class="pagination">
-                    
-                  <div class="row justify-content-center">
-        		  <div class="col-lg-7 text-center">
-          		  <div class="custom-pagination">
-                      
-                      <li th:if="${hasPrevious}"><a th:href="@{/realNotice(page=${requestPage-2}, search=${param.search})}" th:text="'<<'">이전페이지</a></li>
-                      
-                      <th:block th:if="${totalElements != 0}" th:each="page : ${#numbers.sequence(startPage, endPage)}">
-                        <li class="active" th:if="${page == requestPage}"><a th:text="${page}">1</a></li>
-                        <li th:if="${page != requestPage}"><a th:href="@{/realNotice(page=${page-1}, search=${param.search})}" th:text="${page}">1</a></li>
-                      </th:block>
-                      
-                      
-                      <li th:if="${hasNext}"><a th:href="@{/realNotice(page=${requestPage}, search=${param.search})}" th:text="'>>'">다음페이지</a></li>
-                  </div>
-                  </div>
-                  </div>
-                  
-                    </ul>
                   
 				</div>
 	     	</div>

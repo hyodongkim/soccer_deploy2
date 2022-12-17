@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="soccer.deploy.dao.NoticeDAO">
+	
+	<select id="findById" parameterType="string" resultType="soccer.deploy.dto.Notice">
+		SELECT num,id,title,content,notice_date
+		FROM notice
+		WHERE id = #{id}
+	</select>
+	 
+</mapper>

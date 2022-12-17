@@ -1,6 +1,8 @@
 package soccer.deploy;
 
 import java.util.List;
+import java.util.Optional;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +30,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.util.StringUtils;
 
 import lombok.extern.slf4j.Slf4j;
+import soccer.deploy.dao.JpaNoticeRepository;
+import soccer.deploy.dao.NoticeDAO;
 import soccer.deploy.dto.Member;
 import soccer.deploy.dto.Notice;
 import soccer.deploy.service.MemberService;
@@ -44,6 +48,9 @@ public class MyController {
 	
 	@Autowired
 	private NoticeService noticeService;
+	
+	@Autowired
+	private NoticeDAO noticeDAO;
 
 	//시작(로그인)
 	@RequestMapping("/")
@@ -228,4 +235,13 @@ public class MyController {
 		
 		return "thymeleaf/realNotice";
 	}
+	
+	@GetMapping("/{num}")
+	/* default page = 0, default size = 10 */
+	public String view(@PathVariable int num, Model model) {
+		Optional<Notice> optional = noticeService.findNotice(num);
+		model.addAttribute("list", optional.get());
+		return "thymeleaf/intoNotice";
+	}
+	
 }

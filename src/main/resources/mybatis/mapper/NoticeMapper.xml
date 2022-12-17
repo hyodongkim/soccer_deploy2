@@ -85,4 +85,10 @@
 		WHERE id = #{id}
 	</update>
 	 -->
+	 <select id="selectID" parameterType="string">
+		SELECT num,id,notice_title,notice_content,notice_date
+		FROM notice
+		WHERE id = #{id}
+	</select>
+	 
 </mapper>

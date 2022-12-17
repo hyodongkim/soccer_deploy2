@@ -20,6 +20,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Member {
+	private Integer num;
 	@Id
 	@Column(name="member_id")
 	private String id;

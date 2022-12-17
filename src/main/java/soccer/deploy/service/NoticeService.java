@@ -17,7 +17,7 @@ public interface NoticeService {
 	public Notice isNotice(String id, String title);
 	
 	/** 회원 상세 */
-	public Optional<Notice> findNotice(String id);
+	public Optional<Notice> findNotice(int num);
 
 	/** 전체 회원 조회 */
 	public List<Notice> findNotices();

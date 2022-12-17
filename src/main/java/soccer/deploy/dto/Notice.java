@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+
 import org.hibernate.annotations.DynamicInsert;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +21,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Notice {
+	private Integer num;
 	@Id
 	@Column(name="member_id")
 	private String id;
