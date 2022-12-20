@@ -16,7 +16,7 @@
 	<div class="container">
 		<div class="d-flex align-items-center">
 			<div class="site-logo">
-				<a href="index"> <img src="images/logo.png" alt="Logo">
+				<a href="/"> <img src="images/logo.png" alt="Logo">
 				</a>
 			</div>
 			<div class="ml-auto">
@@ -28,7 +28,12 @@
 						<li><a href="matches" class="nav-link">Matches</a></li>
 						<li><a href="players" class="nav-link">Players</a></li>
 						<li><a href="xMain" class="nav-link">MainPage</a></li>
-						<li><a href="/realNotice" class="nav-link">Notice</a></li>
+						<li class="dropdown"><a href="/realNotice" class="dropdown-toggle "
+						data-toggle="dropdown">게시판<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="/realNotice" class="drop">공지사항</a></li>
+							<li><a href="/board" class="drop">자유게시판</a></li>
+						</ul></li>
 						<li><a href="/login" class="nav-link">Login</a></li>
 					</ul>
 				</nav>

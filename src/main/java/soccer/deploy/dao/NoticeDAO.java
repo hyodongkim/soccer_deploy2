@@ -11,5 +11,4 @@ public interface NoticeDAO {
 
 	List<Notice> selectID(String id);
 
-
 }

@@ -45,4 +45,5 @@ public class NoticeServiceImpl implements NoticeService {
 	public Page<Notice> findNotices(String searchValue, Pageable pageable) {
 		return jpaNoticeRepository.findAllByIdOrTitleContaining(searchValue, searchValue, pageable);
 	}
+	
 }

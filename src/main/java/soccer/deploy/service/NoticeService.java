@@ -24,5 +24,5 @@ public interface NoticeService {
 	
 	/** 검색, 페이징 처리 회원 조회 */
 	public Page<Notice> findNotices(String searchValue, Pageable pageable);
-
+	
 }

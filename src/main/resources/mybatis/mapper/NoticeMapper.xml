@@ -3,9 +3,9 @@
                         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="soccer.deploy.dao.JpaNoticeRepository">
 	
-	<select id="findByAll" resultType="soccer.deploy.dto.Notice" >
-		SELECT id,title,content,notice_date 
-        FROM notice 
+	<select id="findAll" resultType="soccer.deploy.dto.Notice" >
+		SELECT id,title,content,notice_date
+        FROM notice
 	</select>
 	
 	<select id="findById" parameterType="string" resultType="soccer.deploy.dto.Notice" >
@@ -79,7 +79,7 @@
 		VALUES(#{id}, #{title}, #{content}, #{notice_date})
 	</insert>
 	
-	<!--<update id="update" parameterType="soccer.deploy.dto.Notice">
+	<!--<update id="update" parameterType="soccer.deploy.dto.notice">
 		UPDATE notice
 		SET age = #{age}
 		WHERE id = #{id}

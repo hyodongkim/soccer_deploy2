@@ -50,6 +50,9 @@ public class MyController {
 	private NoticeService noticeService;
 	
 	@Autowired
+	private JpaNoticeRepository JNR;
+	
+	@Autowired
 	private NoticeDAO noticeDAO;
 
 	//시작(로그인)
@@ -185,14 +188,13 @@ public class MyController {
 //		return "thymeleaf/notice";
 //	}
 	
-	@RequestMapping("/realNotice")
+	@GetMapping("/realNoticeAction")
 	/* default page = 0, default size = 10 */
-	public String reallistBySearchAndPaging(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable, @RequestParam(required = false, defaultValue = "") String search, Model model) {
+	public String reallistBySearchAndPaging(@PageableDefault(page = 0, size = 10, sort = "title", direction = Sort.Direction.ASC) Pageable pageable, @RequestParam(required = false, defaultValue = "") String search, Model model,  @RequestParam(required = false, defaultValue = "") String id) {
 		
 		Page<Notice> page = noticeService.findNotices(search, pageable);
 		    	
 		long totalElements = page.getTotalElements();
-		List<Notice> list = page.getContent();	
 		int requestPage = page.getPageable().getPageNumber() + 1;
 		int totalPage = page.getTotalPages();
 		int startPage = Math.max(1, requestPage - 4);
@@ -201,7 +203,7 @@ public class MyController {
 		boolean hasNext = page.hasNext();
 		
 		model.addAttribute("totalElements", totalElements);
-		model.addAttribute("list", list);
+		model.addAttribute("list",noticeService.findNotices(id,pageable));
 		model.addAttribute("requestPage", requestPage);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("startPage", startPage);
@@ -211,12 +213,13 @@ public class MyController {
 		
 		return "thymeleaf/realNotice";
 	}
-	@GetMapping("/realNotice")
-	public String realSearch(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable, @RequestParam(required = false, defaultValue = "") String search,  Model model, @RequestParam(required = false, defaultValue = "") String id) {
+	@RequestMapping("/realNotice")
+	public String realSearch(@PageableDefault(page = 0, size = 10, sort = "title", direction = Sort.Direction.ASC) Pageable pageable, @RequestParam(required = false, defaultValue = "") String search,  Model model, @RequestParam(required = false, defaultValue = "") String id) {
 	
 		Page<Notice> page = noticeService.findNotices(search, pageable);
 		
 		long totalElements = page.getTotalElements();	
+		List<Notice> list = page.getContent();
 		int requestPage = page.getPageable().getPageNumber() + 1;
 		int totalPage = page.getTotalPages();
 		int startPage = Math.max(1, requestPage - 4);
@@ -225,7 +228,7 @@ public class MyController {
 		boolean hasNext = page.hasNext();
 		
 		model.addAttribute("totalElements", totalElements);
-		model.addAttribute("list", noticeService.findNotices(id,pageable));
+		model.addAttribute("list", list);
 		model.addAttribute("requestPage", requestPage);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("startPage", startPage);

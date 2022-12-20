@@ -56,21 +56,18 @@
   width: 40px;
   height : 22px;
 }
-
-
-/* 텍스트가 영역을 넘치도록 하는 속성 */
-.white-space {
-  white-space: nowrap;
+  
+.input_button_deploy{
+	position :relative;
+	display : flex;
+	justify-content: space-between;
 }
 
-/* 영역에 넘치는 요소를 숨겨주는 속성 */
-.overflow {
-  overflow: hidden;
-}
-
-/* 말줄임표 적용 */
-.ellipsis {
-  text-overflow: ellipsis;
+.line_limit{
+	
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1; /* 라인수 */
+    word-wrap:break-word; 
 }
 
 </style>
@@ -83,7 +80,7 @@
 	<div class="container">
 		<div class="d-flex align-items-center">
 			<div class="site-logo">
-				<a href="index"> <img src="images/logo.png" alt="Logo">
+				<a href="/"> <img src="images/logo.png" alt="Logo">
 				</a>
 			</div>
 			<div class="ml-auto">
@@ -95,7 +92,12 @@
 						<li><a href="matches" class="nav-link">Matches</a></li>
 						<li><a href="players" class="nav-link">Players</a></li>
 						<li><a href="xMain" class="nav-link">MainPage</a></li>
-						<li><a href="/realNotice" class="nav-link">Notice</a></li>
+						<li class="dropdown"><a href="/realNotice" class="dropdown-toggle "
+							data-toggle="dropdown">게시판<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="/realNotice" class="drop">공지사항</a></li>
+								<li><a href="/board" class="drop">자유게시판</a></li>
+							</ul></li>
 						<li><a href="/login" class="nav-link">Login</a></li>
 					</ul>
 				</nav>
@@ -115,7 +117,7 @@
             <div class="col-lg-12">
                 <!-- ★★★ Contents -->
                 <div class="page-header">
-                    <h2 id="container">커뮤니티 회원목록</h2>
+                    <h2 id="container">공지사항</h2>
                 </div>
 
                 <div>
@@ -123,15 +125,17 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                         
-                            
-                            <form th:action="@{/realNotice}" method="get">
-        					  <div>
-            					  <input type="text" name="id" class="form-control" placeholder="아이디 또는 제목을 입력하세요" >
-        					  </div>
+                        
+                        
+                            <form th:action="@{/realNoticeAction}" method="get">
+        						<div class="input_button_deploy">
+            						<input type="text" name="id" class="form-control" style="width:85%" placeholder="아이디 또는 제목을 입력하세요" >
 
-        					  <button class="btn-primary" type="submit">전송</button>
+								  
+        					  		<button class="btn-primary" type="submit" style="width:12%;">전송</button>
+        					  	</div>
     						</form>
-                            
+                          
                             
                             
                         </div>
@@ -139,14 +143,14 @@
 
                     <!-- ★★★ 회원목록 -->
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover" style="width:300px;">
+                        <table class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th class="text-center"></th>
-                                    <th class="text-center">아이디</th>
-                                    <th class="text-center">제목</th>
-                                    <th class="text-center">내용</th>
-                                    <th class="text-center">등록일자</th>
+                                    <th class="text-center" style="width :5%;"></th>
+                                    <th class="text-center" style="width :15%;">아이디</th>
+                                    <th class="text-center" style="width :15%;">제목</th>
+                         
+                                    <th class="text-center" style="width :10%;">등록일자</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -154,11 +158,11 @@
                                  <tbody>
               					 <tr th:if="${totalElements == 0}"><td colspan="5" class="text-center">검색된 회원이 없습니다.</td></tr>
               					 <tr class="text-center" th:each="notice, noticeStat : ${list}">
-                				 <td th:text="${noticeStat.count}">1</td>
-                				 <td th:text="${notice.id}">tester</td>
-                				 <td class="area white-space overflow ellipsis"><a th:href="@{/{noticeNum}(noticeNum=${notice.num})}">[[${notice.title}]]</a></td>
-                				 <td class="area white-space overflow ellipsis" th:text="${notice.content}">tester</td>
-                				 <td class="area white-space overflow ellipsis" th:text="${#temporals.format(notice.notice_date, 'yyyy-MM-dd HH:mm:ss')}">2022-10-10</tdclass="area white-space overflow ellipsis">
+                				 <td th:text="${noticeStat.count}" style="width :5%;">1</td>
+                				 <td th:text="${notice.id}" style="width :15%;">tester</td>
+                				 <td style="width :15%;"><a th:href="@{/{noticeNum}(noticeNum=${notice.num})}" th:text="${notice.title}">${notice.title}</a></td>
+                				
+                				 <td th:text="${#temporals.format(notice.notice_date, 'yyyy-MM-dd HH:mm:ss')}" style="width :10%;">2022-10-10</td>
               					 </tr>
                             </tbody>
                         </table>

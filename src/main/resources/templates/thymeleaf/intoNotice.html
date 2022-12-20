@@ -61,7 +61,7 @@
 	<div class="container">
 		<div class="d-flex align-items-center">
 			<div class="site-logo">
-				<a href="index"> <img src="images/logo.png" alt="Logo">
+				<a href="/"> <img src="images/logo.png" alt="Logo">
 				</a>
 			</div>
 			<div class="ml-auto">
@@ -76,7 +76,7 @@
 						<li class="dropdown"><a href="#" class="dropdown-toggle "
 							data-toggle="dropdown">게시판<b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="/notice" class="drop">공지사항</a></li>
+								<li><a href="/realNotice" class="drop">공지사항</a></li>
 								<li><a href="/board" class="drop">자유게시판</a></li>
 							</ul></li>
 						<li><a href="/login" class="nav-link">Login</a></li>
@@ -98,16 +98,16 @@
             <div class="col-lg-12">
                 <!-- ★★★ Contents -->
                 <div class="page-header">
-                    <h2 id="container">커뮤니티 회원목록</h2>
+                    <h2 id="container">공지사항</h2>
                 </div>
 
                 <tr th:if="${totalElements == 0}"><td colspan="5" class="text-center">검색된 회원이 없습니다.</td></tr>
               		<tr class="text-center" th:each="notice, noticeStat : ${list}">
-                	<td th:text="${noticeStat.count}">1</td>
-                	<td th:text="${notice.id}">tester</td>
-                	<td class="area white-space overflow ellipsis">[[${notice.title}]]</td>
-                	<td class="area white-space overflow ellipsis" th:text="${notice.content}">tester</td>
-                	<td class="area white-space overflow ellipsis" th:text="${#temporals.format(notice.notice_date, 'yyyy-MM-dd HH:mm:ss')}">2022-10-10</tdclass="area white-space overflow ellipsis">
+                	<td th:text="${noticeStat.count}">1</td><br>
+                	<td th:text="${notice.id}">tester</td><br>
+                	<td class="area white-space overflow ellipsis">[[${notice.title}]]</td><br>
+                	<td class="area white-space overflow ellipsis" th:text="${notice.content}">tester</td><br>
+                	<td class="area white-space overflow ellipsis" th:text="${#temporals.format(notice.notice_date, 'yyyy-MM-dd HH:mm:ss')}">2022-10-10</tdclass="area white-space overflow ellipsis"><br>
               	</tr>
 
                   
