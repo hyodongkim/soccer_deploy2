@@ -1,4 +1,4 @@
-package soccer.deploy.service;
+package soccer.deploy.notice.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,11 +7,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import soccer.deploy.dto.Member;
-import soccer.deploy.dto.Notice;
-import soccer.deploy.dao.JpaMemberRepository;
-import soccer.deploy.dao.JpaNoticeRepository;
 
+import lombok.extern.slf4j.Slf4j;
+import soccer.deploy.member.dto.Member;
+import soccer.deploy.notice.dao.JpaMemberRepository;
+import soccer.deploy.notice.dao.JpaNoticeRepository;
+import soccer.deploy.notice.dto.Notice;
+
+@Slf4j
 @Service
 @Transactional
 public class NoticeServiceImpl implements NoticeService {

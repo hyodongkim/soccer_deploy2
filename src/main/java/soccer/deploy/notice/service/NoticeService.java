@@ -1,4 +1,4 @@
-package soccer.deploy.service;
+package soccer.deploy.notice.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,11 +6,11 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import soccer.deploy.dto.Notice;
+import soccer.deploy.notice.dto.Notice;
 
 public interface NoticeService {
-
-	/** 회원가입 */
+	
+	/* 공지등록 */
 	public String register(Notice notice);
 	
 	/** 회원 인증 */

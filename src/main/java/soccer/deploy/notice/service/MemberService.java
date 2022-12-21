@@ -1,4 +1,4 @@
-package soccer.deploy.service;
+package soccer.deploy.notice.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import soccer.deploy.dto.Member;
+import soccer.deploy.member.dto.Member;
 
 public interface MemberService {
 	
